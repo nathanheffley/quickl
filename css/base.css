@@ -3,18 +3,58 @@
   margin: 0;
 }
 
-#header {
-  padding: 0.5rem; 0;
-  text-align: center;
-  background: #f1f1f1;
+p, a, h1, h2 {
+  color: #333;
+}
+
+p {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.5em;
+  margin-bottom: 2rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a, h1, h2 {
   font-family: sans-serif;
 }
 
-#header h2 {
-  font-size: 1.5rem;
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-#header h2 a {
-  color: #333;
-  text-decoration: none;
+.highlight {
+  color: #41b9e0;
+}
+
+#header,
+#footer {
+  padding: 0.5rem; 0;
+  text-align: center;
+  background: #f1f1f1;
+  font-size: 1.25rem;
+}
+
+#content {
+  max-width: 720px;
+  margin: 2rem auto;
+}
+
+@media (max-width: 736px) {
+  #content {
+    padding: 0 8px;
+  }
+}
+
+#content h2 {
+  margin-bottom: 0.5rem;
 }

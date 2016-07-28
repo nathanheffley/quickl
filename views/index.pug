@@ -1,6 +1,8 @@
 html
   head
     title= Quickl
+    meta(name="content" value="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="/css/base.css")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
   body(onload="loadPage(window.location.hash.substring(2))")
@@ -9,5 +11,5 @@ html
         a(href="/#/" class="content-link") Quickl
     #content
     footer#footer
-      p Created by <a href="https://github.com/NathanHeffley" target="_blank">Nathan Heffley</a>
+      a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley
     script(src="/js/ajax.js")
