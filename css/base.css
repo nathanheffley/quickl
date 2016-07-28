@@ -56,5 +56,6 @@ h1 {
 }
 
 #content h2 {
-  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  margin-bottom: 0.35rem;
 }
