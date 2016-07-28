@@ -1,24 +1,13 @@
 html
   head
     title= Quickl
+    link(rel="stylesheet" href="/css/base.css")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
-  body
+  body(onload="loadPage(window.location.hash.substring(2))")
     header#header
       h2
-        a(href="/#/homepage" class="content-link") Quickl
+        a(href="/#/" class="content-link") Quickl
     #content
-      a(href="/#/" + page class="content-link") Load
-      script.
-        var loc = window.location.hash.substr(2);
-        if (loc == '') {
-          $.get('http://localhost:3000/pages/homepage.html', function (data, status) {
-            $("#content").html(data);
-          });
-        } else {
-          $.get('http://localhost:3000/pages/' + loc + '.html', function (data, status) {
-            $("#content").html(data);
-          });
-        }
     footer#footer
       p Created by <a href="https://github.com/NathanHeffley" target="_blank">Nathan Heffley</a>
     script(src="/js/ajax.js")
