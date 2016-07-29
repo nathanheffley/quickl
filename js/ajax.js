@@ -5,11 +5,11 @@ $(document).on('click', '.content-link', function () {
 
 function loadData (loc) {
   if (loc == '') {
-    $.get('http://localhost:3000/pages/homepage.json', function (data, status) {
+    $.get('http://localhost:3000/pages/homepage', function (data, status) {
       loadPage(data);
     });
   } else {
-    $.get('http://localhost:3000/pages/' + loc + '.json', function (data, status) {
+    $.get('http://localhost:3000/posts/' + loc, function (data, status) {
       loadPage(data);
     });
   }
