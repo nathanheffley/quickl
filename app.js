@@ -1,11 +1,10 @@
 var express = require('express');
-
 var mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost/quickl');
 var postSchema = new mongoose.Schema({
-  slug: String,
-  title: String,
-  content: String
+  slug: { type: String, required: true, unique: true},
+  title: { type: String, required: true},
+  content: { type: String, required: true}
 });
 var Post = mongoose.model('Post', postSchema);
 
@@ -18,18 +17,33 @@ app.use('/js', express.static(__dirname + '/js'));
 
 app.get('/', function (req, res) {
   res.render('index');
-})
-
-app.get('/pages/homepage', function (req, res) {
-  res.send({"content": "<a href='/#/first-post' class='content-link'>The First Quickl Post</a><br><a href='/#/another-cool-post' class='content-link'>Another Cool Post</a>"});
 });
 
-app.get('/posts/:slug', function (req, res) {
+app.get('/amp', function (req, res) {
+  res.render('amp/index');
+});
+
+app.get('/:slug', function (req, res) {
   Post.findOne({'slug': req.params.slug}, function (err, post) {
     if (err) {
-      throw err;
+      console.log(err);
+    } else if (post) {
+      res.render('post', {postTitle: post.title, postContent: post.content});
+    } else {
+      res.render('post', {postTitle: 'Post not found.', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>'});
     }
-    res.send(post);
+  });
+});
+
+app.get('/:slug/amp', function (req, res) {
+  Post.findOne({'slug': req.params.slug}, function (err, post) {
+    if (err) {
+      console.log(err);
+    } else if (post) {
+      res.render('amp/post', {postTitle: post.title, postContent: post.content});
+    } else {
+      res.render('amp/post', {postTitle: 'Post not found.', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>'});
+    }
   });
 });
 
