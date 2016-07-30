@@ -59,3 +59,8 @@ h1 {
   font-size: 2rem;
   margin-bottom: 0.35rem;
 }
+
+.featured-image {
+  width: 100%;
+  margin-bottom: 2rem;
+}
