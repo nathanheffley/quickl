@@ -14,6 +14,15 @@ html(amp lang="en")
       }
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <style amp-custom></style>
+    style(amp-custom).
+      *{padding:0;margin:0;}
+      a{color:#333;font-family:sans-serif;text-decoration:none;}
+      ul{list-style:none;}
+      #header,#footer{padding:0.5rem 0;text-align:center;background:#f1f1f1;font-size:1.25rem;}
+      .highlight{color:#41b9e0;}
+      #content{margin:2rem auto;padding:0 8px;max-width:720px;}
+      #content h2{font-size:2rem;margin-bottom:2rem;}
+      #content li:last-child h2{margin-bottom:0;}
     <script async src="https://cdn.ampproject.org/v0.js"></script>
   body
     header#header
@@ -23,6 +32,7 @@ html(amp lang="en")
       ul
         each post in posts
           li
-            a(href="/" + post.slug + "/amp") #{post.title}
+            h2
+              a(href="/" + post.slug + "/amp") #{post.title}
     footer#footer
       a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley

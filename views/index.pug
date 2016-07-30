@@ -13,6 +13,7 @@ html
       ul
         each post in posts
           li
-            a(href="/" + post.slug) #{post.title}
+            h2
+              a(href="/" + post.slug) #{post.title}
     footer#footer
       a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley
