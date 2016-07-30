@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/amp', function (req, res) {
-  res.render('./amp/index');
+  res.render(__dirname + '/amp/index');
 });
 
 app.get('/:slug', function (req, res) {
@@ -28,9 +28,9 @@ app.get('/:slug', function (req, res) {
     if (err) {
       console.log(err);
     } else if (post) {
-      res.render('post', {postTitle: post.title, postContent: post.content});
+      res.render('post', {postSlug: post.slug, postTitle: post.title, postContent: post.content});
     } else {
-      res.render('post', {postTitle: 'Post not found.', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>'});
+      res.render('post', {postSlug: '404', postTitle: 'Post not found.', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>'});
     }
   });
 });
@@ -40,9 +40,9 @@ app.get('/:slug/amp', function (req, res) {
     if (err) {
       console.log(err);
     } else if (post) {
-      res.render('./amp/post', {postSlug: post.slug, postTitle: post.title, postContent: post.content});
+      res.render(__dirname + '/amp/post', {postSlug: post.slug, postTitle: post.title, postContent: post.content});
     } else {
-      res.render('./amp/post', {postTitle: 'Post not found.', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>'});
+      res.render(__dirname + '/amp/post', {postSlug: '404', postTitle: 'Post not found.', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>'});
     }
   });
 });
