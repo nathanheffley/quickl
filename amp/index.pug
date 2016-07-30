@@ -20,6 +20,9 @@ html(amp lang="en")
       h2
         a(href="/amp" class="content-link") Quickl
     #content
-      a(href="/quickl-remark/amp") A Quickl Remark
+      ul
+        each post in posts
+          li
+            a(href="/" + post.slug + "/amp") #{post.title}
     footer#footer
       a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley

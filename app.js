@@ -19,11 +19,17 @@ app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 
 app.get('/', function (req, res) {
-  res.render('index');
+  Post.find({}).limit(10).exec(function (err, posts) {
+    if (err) throw err;
+    res.render('index', { posts: posts });
+  });
 });
 
 app.get('/amp', function (req, res) {
-  res.render(__dirname + '/amp/index');
+  Post.find({}).limit(10).exec(function (err, posts) {
+    if (err) throw err;
+    res.render(__dirname + '/amp/index', { posts: posts });
+  });
 });
 
 app.get('/:slug', function (req, res) {

@@ -10,6 +10,9 @@ html
       h2
         a(href="/" class="content-link") Quickl
     #content
-      a(href="/quickl-remark") A Quickl Remark
+      ul
+        each post in posts
+          li
+            a(href="/" + post.slug) #{post.title}
     footer#footer
       a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley
