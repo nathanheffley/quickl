@@ -50,22 +50,21 @@ app.get('/:slug/amp', function (req, res) {
 
 function routePost(req, res, amp) {
   Post.findOne({'slug': req.params.slug}, function (err, post) {
+    var resObj = {postSlug: '404', postTitle: 'Post not found.', postAuthor: 'not-found', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>', postImage: 'not-found', postCreated: 'not-found', postUpdated: 'not-found'}; // Default 404 resonse object
+
+    // Check if a post was found
     if (err) {
       console.log(err);
     } else if (post) {
-      var postObj = {postSlug: post.slug, postTitle: post.title, postAuthor: post.author, postContent: post.content, postImage: post.image, postCreated: post.createdAt, postUpdated: post.updatedAt}
-      if (amp) {
-        res.render(__dirname + '/amp/post', postObj);
-      } else {
-        res.render('post', postObj);
-      }
+      // If a post was found and is not null, change the response object to the post
+      resObj = {postSlug: post.slug, postTitle: post.title, postAuthor: post.author, postContent: post.content, postImage: post.image, postCreated: post.createdAt, postUpdated: post.updatedAt}
+    }
+
+    // Finally, send the response object for the proper format
+    if (amp) {
+      res.render(__dirname + '/amp/post', resObj);
     } else {
-      var _404Obj = {postSlug: '404', postTitle: 'Post not found.', postAuthor: 'not-found', postContent: '<p>Sorry that I couldn\'t find what you\'re looking for :(</p>', postImage: 'not-found', postCreated: 'not-found', postUpdated: 'not-found'}
-      if (amp) {
-        res.render(__dirname + '/amp/post', _404Obj);
-      } else {
-        res.render('post', _404Obj);
-      }
+      res.render('post', resObj);
     }
   });
 }
