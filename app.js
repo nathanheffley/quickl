@@ -50,25 +50,82 @@ app.get('/:slug/amp', function (req, res) {
 
 function routePost(req, res, amp) {
   Post.findOne({'slug': req.params.slug}, function (err, post) {
+    var resObj = {}
+
     if (err) {
       console.log(err);
     } else if (post) {
       // If a post was found and is not null, change the response object to the post
-      var resObj = {postSlug: post.slug, postTitle: post.title, postAuthor: post.author, postContent: post.content, postImage: post.image, postCreated: post.createdAt, postUpdated: post.updatedAt}
+      resObj = {postSlug: post.slug,
+                postTitle: post.title,
+                postAuthor: post.author,
+                postContent: post.content,
+                postImage: post.image,
+                postCreated: post.createdAt,
+                postUpdated: post.updatedAt}
     } else {
       // Redirect missing pages to the 404 page.
       res.redirect('/'); // TODO: Redirect to 404 page.
+      return;
     }
 
-    // Finally, send the response object for the proper format
-    if (amp) {
-      res.render(__dirname + '/amp/post', resObj);
-    } else {
-      res.render('post', resObj);
-    }
+    // Set the next and last posts
+    findNextPost(post.createdAt, function (nextPost) {
+      resObj.nextPostSlug  = nextPost.slug;
+      resObj.nextPostTitle = nextPost.title;
+      resObj.nextPostImage = nextPost.image;
+      resObj.nextPostAuthor = nextPost.author;
+      resObj.nextPostCreated = nextPost.createdAt;
+
+      findLastPost(post.createdAt, function (lastPost) {
+        resObj.lastPostSlug  = lastPost.slug;
+        resObj.lastPostTitle = lastPost.title;
+        resObj.lastPostImage = lastPost.image;
+        resObj.lastPostAuthor = lastPost.author;
+        resObj.lastPostCreated = lastPost.createdAt;
+
+        // Finally, serve the resObj in the proper formatting
+        if (amp) {
+          res.render(__dirname + '/amp/post', resObj);
+        } else {
+          res.render('post', resObj);
+        }
+      });
+    });
   });
 }
 /* End Post Routing */
+
+// Find the next post information
+function findNextPost(currentPostDate, callback) {
+  Post.findOne({createdAt: {$gt: currentPostDate}}).select('slug title image author createdAt').sort({createdAt: 1}).exec(function (err, post) {
+    if (err) {
+      console.log(err);
+    } else if (post) {
+      callback(post);
+      return;
+    }
+    callback(emptyPost());
+  });
+}
+
+// Find the last post information
+function findLastPost(currentPostDate, callback) {
+  Post.findOne({createdAt: {$lt: currentPostDate}}).select('slug title image author createdAt').sort({createdAt: -1}).exec(function (err, post) {
+    if (err) {
+      console.log(err);
+    } else if (post) {
+      callback(post);
+      return;
+    }
+    callback(emptyPost());
+  });
+}
+
+function emptyPost() {
+  var emptyPost = {slug: '#', title: 'No more this way.', image: 'no-image', author: 'No Author', createdAt: 'no-date'};
+  return emptyPost;
+}
 
 app.listen(port, function () {
   console.log('Quickl is listening on port ' + port)

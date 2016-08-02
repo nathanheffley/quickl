@@ -10,8 +10,26 @@ html
       h2
         a(href="/") Quickl
     #content
-      img(class="featured-image" src=postImage)
-      h1= postTitle
-      != postContent
+      article
+        img(class="featured-image" src=postImage)
+        h1= postTitle
+        != postContent
+      footer
+        h3= postAuthor + ' on ' + postCreated
+        .post-list
+          a(href="/" + nextPostSlug)
+            .post-listing
+              .listing-pic
+                img(class="thumbnail-image" src=nextPostImage)
+              .listing-content
+                h2= nextPostTitle
+                h3= nextPostAuthor + ' on ' + NextPostCreated
+          a(href="/" + lastPostSlug)
+            .post-listing
+              .listing-pic
+                img(class="thumbnail-image" src=lastPostImage)
+              .listing-content
+                h2= lastPostTitle
+                h3= lastPostAuthor + ' on ' + lastPostCreated
     footer#footer
       a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley

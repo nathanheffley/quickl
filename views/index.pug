@@ -10,10 +10,14 @@ html
       h2
         a(href="/") Quickl
     #content
-      ul
+      .post-list
         each post in posts
-          li
-            h2
-              a(href="/" + post.slug) #{post.title}
+          a(href="/" + post.slug)
+            .post-listing
+              .listing-pic
+                img(class="thumbnail-image" src=post.image)
+              .listing-content
+                h2= post.title
+                h3= post.author + ' on ' + post.createdAt
     footer#footer
       a(class="highlight" href="https://github.com/NathanHeffley" target="_blank") Nathan Heffley
